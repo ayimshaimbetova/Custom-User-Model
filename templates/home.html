@@ -3,7 +3,7 @@
 {% block content %}
 {% if user.is_authenticated %}
 Hi {{ user.username }}! You are {{ user.age }} years old.
-
+<a href="{% url 'article_list' %}" class="nav-link px-2 link-dark">All Articles are here</a> 
 <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
     <p><button type="submit">Logout</button></p>

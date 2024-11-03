@@ -2,8 +2,9 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="article-entry">
-<h2>{{ object.title }}</h2>
-<p>by {{ object.author }} | {{ object.date }}</p>
+<h2> {{ object.title }} </h2>
+ 
+<p>by {{ object.author }}  | {{ object.date }}</p>
 <p>{{ object.body }}</p>
 </div>
 <hr>
@@ -17,8 +18,10 @@
 {{ form|crispy }}
 <button class="btn btn-success ml-2" type="submit">Save</button>
 </form>
+{% if article.author == user %}
 
 <p><a href="{% url 'article_edit' article.pk %}">Edit</a> |
 <a href="{% url 'article_delete' article.pk %}">Delete</a></p>
 <p>Back to <a href="{% url 'article_list' %}">All Articles</a>.</p>
+{%endif%}
 {% endblock content %}
