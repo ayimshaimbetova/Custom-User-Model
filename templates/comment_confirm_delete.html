@@ -1,0 +1,7 @@
+<h2>Are you sure?</h2>
+<p>Are you Sure?</p>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Delete</button>
+</form>
+<a href="{% url 'article_detail' object.article.pk %}">Cancel</a>
