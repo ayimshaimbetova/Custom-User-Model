@@ -10,7 +10,7 @@ from django.middleware.csrf import get_token
 from django.views.decorators.csrf import csrf_protect
 
 
-class ArticleAPIView(generics.ListCreateAPIView):
+class ArticleAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = [AllowAny]

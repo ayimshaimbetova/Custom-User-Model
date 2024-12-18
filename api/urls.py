@@ -9,7 +9,8 @@ from .views import (
     CommentListCreateAPIView, 
     CommentDetailAPIView, 
     CustomTokenObtainPairView,
-    get_csrf_token)
+    get_csrf_token,
+)
 
 
 
@@ -23,8 +24,5 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('custom-token/', CustomTokenObtainPairView.as_view(), name='custom_token_obtain_pair'),
     path('csrf-token/', get_csrf_token, name='csrf_token'),
-
-    
-
 
 ]

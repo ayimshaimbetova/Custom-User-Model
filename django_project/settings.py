@@ -69,8 +69,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_bootstrap5",
+    "rest_framework.authtoken", 
+    "allauth", 
+    'drf_yasg',
+    "allauth.account", 
+    "allauth.socialaccount", 
+    "dj_rest_auth", 
+    "dj_rest_auth.registration", 
     "corsheaders",
     "rest_framework", 
+    "django.contrib.sites",
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
     "articles.apps.ArticlesConfig", 
@@ -87,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'django_project.urls'
@@ -102,6 +111,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                "django.template.context_processors.request", 
+                
             ],
         },
     },
@@ -185,10 +196,19 @@ TIME_ZONE = "America/New_York"
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated", 
+],
+
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend" 
+SITE_ID = 1 
 
 
 SIMPLE_JWT = {
