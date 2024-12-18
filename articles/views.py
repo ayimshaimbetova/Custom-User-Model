@@ -6,6 +6,11 @@ from .forms import CommentForm
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import SingleObjectMixin
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import ListAPIView
+from api.serializers import ArticleSerializer
 
 class ArticleListView(LoginRequiredMixin, ListView):
     model = Article
@@ -129,3 +134,7 @@ class CommentDeleteView(DeleteView):
         return reverse("article_detail", kwargs={"pk": self.object.article.pk})
 
     
+class ProtectedArticleListAPIView(ListAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    permission_classes = [IsAuthenticated]

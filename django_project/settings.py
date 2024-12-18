@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from environs import Env  
+from datetime import timedelta
 
 env = Env()  
 env.read_env()  
@@ -33,7 +34,27 @@ DEBUG = env.bool("DEBUG", default=False)
 
 
 
-ALLOWED_HOSTS = [".herokuapp.com", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = [ "localhost", "127.0.0.1"]
+
+CORS_ALLOWED_ORIGINS = (
+    "http://localhost:3000",
+    "http://localhost:8000",
+)
+
+
+CSRF_TRUSTED_ORIGINS = [
+    "http://127.0.0.1:3000",
+    'https://example.com',   
+]
+
+CORS_ALLOW_HEADERS = [
+    'authorization',
+    'content-type',
+    'x-csrftoken',
+    'accept',
+    'origin',
+    'user-agent',
+]
 
 
 # Application definition
@@ -48,9 +69,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "crispy_forms",
     "crispy_bootstrap5",
+    "corsheaders",
+    "rest_framework", 
     "accounts.apps.AccountsConfig",
     "pages.apps.PagesConfig",
     "articles.apps.ArticlesConfig", 
+    "api.apps.ApiConfig", 
 ]
 
 MIDDLEWARE = [
@@ -59,6 +83,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.middleware.csrf.CsrfViewMiddleware',
+    "corsheaders.middleware.CorsMiddleware", 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -157,3 +182,17 @@ EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 
 
 TIME_ZONE = "America/New_York"
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
+
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), 
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  
+    'AUTH_HEADER_TYPES': ('Bearer',),
+}

@@ -7,6 +7,7 @@ ArticleListView,
     ArticleCreateView,  
     CommentEditView, 
     CommentDeleteView,
+    ProtectedArticleListAPIView
     )
 
 urlpatterns = [
@@ -17,6 +18,8 @@ urlpatterns = [
     path("<int:pk>/delete/", ArticleDeleteView.as_view(), name="article_delete"),  
     path("comment/<int:pk>/edit/", CommentEditView.as_view(), name="comment_edit"),
     path("comment/<int:pk>/delete/", CommentDeleteView.as_view(), name="comment_delete"),
+    path("protected-articles/", ProtectedArticleListAPIView.as_view(), name="protected-articles"),
+
      
 
 ]

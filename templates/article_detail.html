@@ -15,7 +15,7 @@
 <p>{{ comment.author }} &middot; {{ comment }}|
 {% if comment.author == request.user %}
     <a href="{% url 'comment_edit' comment.pk %}">Edit</a> |
-    <a href="{% url 'comment_delete' comment.pk %}">Delete</a>
+    <a href="{% url 'comment_delete' comment.pk %}">Delete</a> 
 {% endif %}
 </p>
 {% endfor %}
