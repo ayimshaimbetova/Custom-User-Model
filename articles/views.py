@@ -103,11 +103,9 @@ class CommentEditView(UpdateView):
     template_name = "comment_edit.html"
 
     def get_queryset(self):
-        # Ограничить доступ к редактированию только для автора комментария
         return Comment.objects.filter(author=self.request.user)
 
     def get_success_url(self):
-        # После редактирования вернуться к статье
         return reverse("article_detail", kwargs={"pk": self.object.article.pk})
 
 class CommentDeleteView(DeleteView):
@@ -115,14 +113,11 @@ class CommentDeleteView(DeleteView):
     template_name = "comment_confirm_delete.html"
     
     def get_queryset(self):
-        # Ограничить доступ к удалению только для автора комментария
         return Comment.objects.filter(author=self.request.user)
     
     def test_func(self):
-        # Получаем объект комментария и статью, к которой он относится
         comment = self.get_object()
         article_author = comment.article.author
-        # Проверка прав: текущий пользователь — автор комментария, администратор или автор статьи
         return (
             self.request.user == comment.author or
             self.request.user == article_author or
@@ -130,7 +125,6 @@ class CommentDeleteView(DeleteView):
         )
     
     def get_success_url(self):
-        # После удаления вернуться к статье
         return reverse("article_detail", kwargs={"pk": self.object.article.pk})
 
     

@@ -13,8 +13,6 @@ from .views import (
 )
 
 
-
-
 urlpatterns = [
     path("articles/", ArticleAPIView.as_view(), name="article_list"),
     path("articles/<int:pk>/", ArticleDetailAPIView.as_view(), name="article_detail"),

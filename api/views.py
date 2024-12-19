@@ -7,16 +7,15 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.http import JsonResponse
 from django.middleware.csrf import get_token
-from django.views.decorators.csrf import csrf_protect
+#from django.views.decorators.csrf import csrf_protect
 
 
-class ArticleAPIView(generics.RetrieveUpdateDestroyAPIView):
+class ArticleAPIView(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     permission_classes = [AllowAny]
-    @csrf_protect
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
+    permission_classes = [IsAuthenticated]
+
 
 class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Article.objects.all()
